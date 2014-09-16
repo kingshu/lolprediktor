@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+for ($i=0; $i<100; $i++) {
+	$in = <STDIN>;
+	$in =~ s/[\s\n]//g;
+	print "\"$in\"=>0, ";
+}

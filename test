@@ -1,0 +1,75 @@
+#!/usr/bin/perl
+
+
+%heroWins = ("Akali"=>0, "Alistar"=>0, "Amumu"=>0, "Anivia"=>0, "Annie"=>0, "Ashe"=>0, "Blitzcrank"=>0, "Brand"=>0, "Caitlyn"=>0, "Cassiopeia"=>0, "Cho'Gath"=>0, "Corki"=>0, "Darius"=>0, "Diana"=>0, "Dr.Mundo"=>0, "Draven"=>0, "Elise"=>0, "Evelynn"=>0, "Ezreal"=>0, "Fiddlesticks"=>0, "Fiora"=>0, "Fizz"=>0, "Galio"=>0, "Gangplank"=>0, "Garen"=>0, "Gragas"=>0, "Graves"=>0, "Hecarim"=>0, "Heimerdinger"=>0, "Irelia"=>0, "Janna"=>0, "Jarvan"=>0, "Jax"=>0, "Jayce"=>0, "Karma"=>0, "Karthus"=>0, "Kassadin"=>0, "Katarina"=>0, "Kayle"=>0, "Kennen"=>0, "Kha'Zix"=>0, "Kog'Maw"=>0, "LeBlanc"=>0, "Lee"=>0, "Leona"=>0, "Lulu"=>0, "Lux"=>0, "Malphite"=>0, "Malzahar"=>0, "Maokai"=>0, "Master"=>0, "Miss"=>0, "Mordekaiser"=>0, "Morgana"=>0, "Nami"=>0, "Nasus"=>0, "Nautilus"=>0, "Nidalee"=>0, "Nocturne"=>0, "Nunu"=>0, "Olaf"=>0, "Orianna"=>0, "Pantheon"=>0, "Poppy"=>0, "Rammus"=>0, "Renekton"=>0, "Rengar"=>0, "Riven"=>0, "Rumble"=>0, "Ryze"=>0, "Sejuani"=>0, "Shaco"=>0, "Shen"=>0, "Shyvana"=>0, "Singed"=>0, "Sion"=>0, "Sivir"=>0, "Skarner"=>0, "Sona"=>0, "Soraka"=>0, "Swain"=>0, "Syndra"=>0, "Talon"=>0, "Taric"=>0, "Teemo"=>0, "Thresh"=>0, "Tristana"=>0, "Trundle"=>0, "Tryndamere"=>0, "Twisted"=>0, "Twitch"=>0, "Udyr"=>0, "Urgot"=>0, "Varus"=>0, "Vayne"=>0, "Veigar"=>0, "Vi"=>0, "Viktor"=>0);
+
+%heroPlays = ("Akali"=>0, "Alistar"=>0, "Amumu"=>0, "Anivia"=>0, "Annie"=>0, "Ashe"=>0, "Blitzcrank"=>0, "Brand"=>0, "Caitlyn"=>0, "Cassiopeia"=>0, "Cho'Gath"=>0, "Corki"=>0, "Darius"=>0, "Diana"=>0, "Dr.Mundo"=>0, "Draven"=>0, "Elise"=>0, "Evelynn"=>0, "Ezreal"=>0, "Fiddlesticks"=>0, "Fiora"=>0, "Fizz"=>0, "Galio"=>0, "Gangplank"=>0, "Garen"=>0, "Gragas"=>0, "Graves"=>0, "Hecarim"=>0, "Heimerdinger"=>0, "Irelia"=>0, "Janna"=>0, "Jarvan"=>0, "Jax"=>0, "Jayce"=>0, "Karma"=>0, "Karthus"=>0, "Kassadin"=>0, "Katarina"=>0, "Kayle"=>0, "Kennen"=>0, "Kha'Zix"=>0, "Kog'Maw"=>0, "LeBlanc"=>0, "Lee"=>0, "Leona"=>0, "Lulu"=>0, "Lux"=>0, "Malphite"=>0, "Malzahar"=>0, "Maokai"=>0, "Master"=>0, "Miss"=>0, "Mordekaiser"=>0, "Morgana"=>0, "Nami"=>0, "Nasus"=>0, "Nautilus"=>0, "Nidalee"=>0, "Nocturne"=>0, "Nunu"=>0, "Olaf"=>0, "Orianna"=>0, "Pantheon"=>0, "Poppy"=>0, "Rammus"=>0, "Renekton"=>0, "Rengar"=>0, "Riven"=>0, "Rumble"=>0, "Ryze"=>0, "Sejuani"=>0, "Shaco"=>0, "Shen"=>0, "Shyvana"=>0, "Singed"=>0, "Sion"=>0, "Sivir"=>0, "Skarner"=>0, "Sona"=>0, "Soraka"=>0, "Swain"=>0, "Syndra"=>0, "Talon"=>0, "Taric"=>0, "Teemo"=>0, "Thresh"=>0, "Tristana"=>0, "Trundle"=>0, "Tryndamere"=>0, "Twisted"=>0, "Twitch"=>0, "Udyr"=>0, "Urgot"=>0, "Varus"=>0, "Vayne"=>0, "Veigar"=>0, "Vi"=>0, "Viktor"=>0);
+
+
+$num_probs = <STDIN>;
+
+for ($i=0; $i<$num_probs; $i++) {
+	$in = <STDIN>;
+	push (@probs, $in);
+}
+
+for ($i=0; $i<15000; $i++) {
+	$data = <STDIN>;	
+	
+	@players = split ("," , $data);
+	
+	for ($j=0; $j<10; $j++) {
+		$heroPlays{$players[$j]}++ ;
+	}
+	
+	if ($data =~ m/1/) {
+		for ($k=0; $k<5; $k++){
+			$heroWins{$players[$k]}+=3 ;
+		}		 
+		for ($k=5; $k<10; $k++) {
+			$heroWins{$players[$k]}-=2 ;
+		}
+	}
+	else {
+		for ($k=0; $k<5; $k++){
+			$heroWins{$players[$k]}-=2 ;
+		}	
+		for ($k=5; $k<10; $k++) {
+			$heroWins{$players[$k]}+=3 ;
+		}
+	}	
+}	
+
+while (($key, $value) = each(%heroPlays)){
+	if ($heroPlays{$key} != 0) {
+		$heroWins{$key} = $heroWins{$key}/$heroPlays{$key};
+	}
+}
+
+foreach (@probs) {
+	@plyrs = split ("," , $_);
+	
+	$sum1 = 0;
+	$sum2 = 0;
+	
+	for ($n=0; $n<5; $n++) {
+		$sum1 += $heroWins{$plyrs[$n]};
+	}
+	
+	for ($n=5; $n<10; $n++) {
+		$sum2 += $heroWins{$plyrs[$n]};
+	}
+	
+	if ($sum1 > $sum2) {
+#		print "\n1 - $sum1, $sum2";
+		print "1\n";
+	}
+	else {
+#		print "\n2 - $sum1, $sum2";
+		print "2\n";
+	}
+	
+}
+
+
+
